@@ -1,0 +1,48 @@
+/* .kifeh__navbar{
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+}
+
+.kifeh__navbar h1{
+    cursor: pointer;
+}
+    
+.kifeh__nvbar-logo{
+    border: 1px solid blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+}
+
+.kifeh__navbar-links{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 70vw;
+    padding-left: 5vw;
+    border: 1px solid red; 
+}
+
+.kifeh__navbar-links > *{
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 20;
+    transition: all 0.5s ease-in-out;
+}
+
+.kifeh__navbar-links > *:hover{
+    color: blue;
+}
+
+.kifeh__navbar-auth{
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid green;
+
+} */
