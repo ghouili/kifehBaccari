@@ -3,9 +3,9 @@ import Mainroute from './routes/Mainroute';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Mainroute />
-    </div>
+    </>
   );
 }
 

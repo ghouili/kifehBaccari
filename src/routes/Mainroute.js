@@ -1,16 +1,19 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Dashboard, Login } from '../containers';
-import { Navbar } from '../components';
+import { Navbar, Infonav } from '../components';
 
 
 const Mainroute = () => {
   const location = useLocation();
 
   return (
-    <div>
+    <div className='w-screen h-screen'>
       {location.pathname === '/login' || location.pathname === '/register' ? null :
+      <>
+        <Infonav />
         <Navbar />
+      </>
       }
       <Routes>
         <Route index element={<Dashboard />} />
