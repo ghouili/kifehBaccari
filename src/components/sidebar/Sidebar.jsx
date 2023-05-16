@@ -1,85 +1,58 @@
 import "./sidebar.css";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { MdArrowForwardIos } from "react-icons/md";
-import { RiDashboard2Fill } from "react-icons/ri";
-import { SiPeugeot } from "react-icons/si";
+import { Link, useLocation } from "react-router-dom";
+import { BsBank2 } from "react-icons/bs";
+import { TbLayoutDashboard } from "react-icons/tb";
+import { GiShop } from "react-icons/gi";
 import { FiUsers } from "react-icons/fi";
+import { GiPackedPlanks } from "react-icons/gi";
 
-import Logo from "../../assets/images/login.png";
-import MiniLogo from "../../assets/images/login.png";
 import { GeneralContext } from "../../Hooks/context/GeneralContext";
+import Logo from "../../assets/images/logo.png";
+import MiniLogo from "../../assets/images/MiniSebmlogo.png";
 
 const Sidebar = () => {
-  const { sidebarOpen, setSidebarOpen } = useContext(GeneralContext);
-
+  const { sidebarOpen, ToggleSidebar } = useContext(GeneralContext);
+  const location = useLocation();
   return (
-    // w-52 = open sidebar // w-20: closed sidebar
-    <div id="main__sidebar" className="sidebar h-full transition-all duration-300 ease-in-out  ">
-      <div className="h-14 bg-white flex items-center justify-center">
-        {sidebarOpen ? (
-          <img src={Logo} alt="Sebn_TN" className="w-auto h-10" />
-        ) : (
-          <img src={MiniLogo} alt="Sebn_TN" className="w-auto h-10" />
-        )}
+    <div id="main__sidebar" className="sidebar flex flex-col gap-4 bg-white">
+      <div
+        className={`w-full bg-white flex justify-center items-center ${
+          sidebarOpen ? "px-6 py-4" : "p-3"
+        } `}
+      >
+        <img
+          src={sidebarOpen ? Logo : MiniLogo}
+          alt="logo"
+          className={`${sidebarOpen ? "w-full h-auto" : "w-full h-auto"}`}
+        />
       </div>
-      <div className="flex flex-col w-full gap-4 px-6 py-4  ">
-        {/* Dashboard:::: */}
-        <div className=" flex justify-between items-center text-gray-300 hover:text-white  ">
-          <div
-            className={`flex items-center gap-2 transition-all duration-300 ease-in-out ${
-              sidebarOpen ? "" : "text-3xl"
-            }`}
-          >
-            <RiDashboard2Fill className="" />
-            <Link
-              to="/"
-              className={`sidebar__link font-medium ${sidebarOpen ? "" : "hidden"}`}
-            >
-              Dashboard
-            </Link>
-          </div>
-          {/* <div className={`sidebar__link ${sidebarOpen ? "ml-10" : "hidden"}`}>
-            <MdArrowForwardIos />
-          </div> */}
-        </div>
-        {/* Products:::: */}
-        {/* <div className=" flex justify-between items-center text-gray-300 hover:text-white  ">
-          <div
-            className={`flex items-center gap-2 transition-all duration-300 ease-in-out ${
-              sidebarOpen ? "" : "text-3xl"
-            }`}
-          >
-            <SiPeugeot className="" />
-            <Link
-              to="/products"
-              className={`sidebar__link font-medium ${sidebarOpen ? "" : "hidden"}`}
-            >
-              Products
-            </Link>
-          </div>
-          
-        </div> */}
-        
-        {/* ‘سثقس:::: */}
-        <div className=" flex justify-between items-center text-gray-300 hover:text-white  ">
-          <div
-            className={`flex items-center gap-2 transition-all duration-300 ease-in-out ${
-              sidebarOpen ? "" : "text-3xl"
-            }`}
-          >
-            <FiUsers className="" />
-            <Link
-              to="/users"
-              className={`sidebar__link font-medium ${sidebarOpen ? "" : "hidden"}`}
-            >
-              Users
-            </Link>
-          </div>
-          {/* <div className={`sidebar__link ${sidebarOpen ? "ml-10" : "hidden"}`}>
-            <MdArrowForwardIos />
-          </div> */}
-        </div>
+      <div className="px-3 flex flex-col gap-3">
+        {/* Dashboard::: */}
+        <Link
+          to="/"
+          className={`rounded-md flex flex-row items-center px-3 py-2 gap-2 text-base font-semibold hover:text-gray-800 hover:bg-gray-200 ${
+            location.pathname === "/"
+              ? "text-gray-100 bg-customColor"
+              : "text-gray-800"
+          } `}
+        >
+          <TbLayoutDashboard size={26} />
+          <span>Dashboard</span>
+        </Link>
+
+        {/* user::: */}
+        <Link
+          to="/users"
+          className={`rounded-md flex flex-row items-center px-3 py-2 gap-2 text-base font-semibold  hover:text-gray-800 hover:bg-gray-200 ${
+            location.pathname === "/users"
+              ? "text-gray-100 bg-customColor"
+              : "text-gray-800"
+          } `}
+        >
+          <FiUsers size={26} />
+          <span>Users</span>
+        </Link>
       </div>
     </div>
   );

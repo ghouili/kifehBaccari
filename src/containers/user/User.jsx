@@ -37,6 +37,9 @@ const User = () => {
     role: null,
   });
 
+  const [search, setSearch] = useState("");
+  const [filterData, setfilterData] = useState([]);
+  const [masterData, setmasterData] = useState([]);
   const [data, setData] = useState([]);
 
   //image related
@@ -78,12 +81,29 @@ const User = () => {
   const fetchdata = async () => {
     const result = await axios.get(`${path}user`);
     setData(result.data.data);
+    setfilterData(result.data.data);
+    setmasterData(result.data.data);
     // console.log(result.data.data);
   };
 
   useEffect(() => {
     fetchdata();
   }, []);
+
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = masterData.filter((item) => {
+        const itemData = Object.values(item).join(" ").toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setfilterData(newData);
+      setSearch(text);
+    } else {
+      setfilterData(masterData);
+      setSearch(text);
+    }
+  };
 
   const CloseModal = async () => {
     setPicture("");
@@ -246,6 +266,7 @@ const User = () => {
     formData.append("tel", tel);
     formData.append("role", role);
     formData.append("adress", adress);
+    formData.append("active", true);
     formData.append("userid", "643d180ba25112718ae6fcfb");
 
     if (id) {
@@ -266,15 +287,24 @@ const User = () => {
   };
 
   const delete_user = async (id) => {
-    const result = await axios.delete(`${path}user/${id}`);
+    const willDelete = await swal({
+      title: "Are you sure?",
+      text: "Are you sure that you want to delete this User?",
+      icon: "warning",
+      dangerMode: true,
+    });
 
-    if (result.data.success === true) {
-      swal("Poof! Utilisateur supprimé avec succés!", {
-        icon: "success",
-      });
-      fetchdata();
-    } else {
-      swal("Error!", result.data.message, "warning");
+    if (willDelete) {
+      const result = await axios.delete(`${path}user/${id}`);
+
+      if (result.data.success === true) {
+        swal("Poof! Utilisateur supprimé avec succés!", {
+          icon: "success",
+        });
+        fetchdata();
+      } else {
+        swal("Error!", result.data.message, "warning");
+      }
     }
   };
 
@@ -288,19 +318,51 @@ const User = () => {
           <span className="font-medium">/</span>
           <span className="">Users</span>
         </div>
-        <div className="flex gap-4 items-center">
-          <button
-            className=" relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 "
-            onClick={() => setOpenModal(!openModal)}
-          >
-            <span className="relative px-3 py-1.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
-              Add User
-            </span>
-          </button>
+        <div className="flex gap-6">
+          <div className="">
+            <label for="simple-search" class="sr-only">
+              Search
+            </label>
+            <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg
+                  aria-hidden="true"
+                  class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="simple-search"
+                value={search}
+                onChange={(e) => searchFilter(e.target.value)}
+                className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:outline-none block w-full pl-10 p-1.5  "
+                placeholder="Search"
+              />
+            </div>
+          </div>
+          <div className="flex gap-4 items-center">
+            <button
+              className=" relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 "
+              onClick={() => setOpenModal(!openModal)}
+            >
+              <span className="relative px-3 py-1.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                Add User
+              </span>
+            </button>
+          </div>
         </div>
       </div>
-      <div className="py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
-        {data
+      <div className="py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {filterData
           .slice(0)
           .reverse()
           .map(
@@ -396,13 +458,27 @@ const User = () => {
           <form onSubmit={handleSubmit}>
             <div className="">
               {previewUrl ? (
-                <div className=" w-40 h-hidden rounded-md shadow-inner mx-auto ">
+                <div className=" relative w-40 h-hidden rounded-md shadow-inner mx-auto ">
                   <img
                     src={previewUrl}
-                    // src={`https://i.pinimg.com/564x/22/7d/73/227d73d1ca2d45a6b4f196dc916b54a3.jpg`}
+                    alt="product_pic"
                     className="h-full w-full object-cover object-center rounded-md"
-                    alt="avatr"
                   />
+                  <label
+                    htmlFor="pictureID"
+                    className="absolute p-1 rounded-full bg-purple-50 border border-white -bottom-3 -left-3 text-gray-700 cursor-pointer"
+                  >
+                    <BiEdit size={20} />
+                    <input
+                      type="file"
+                      name="picture"
+                      id="pictureID"
+                      className="hidden"
+                      accept=".jpg,.png,.jpeg"
+                      ref={filePickerRef}
+                      onChange={pickedHandler}
+                    />
+                  </label>
                 </div>
               ) : picture ? (
                 <div className=" relative w-40 h-hidden rounded-md shadow-inner mx-auto ">
