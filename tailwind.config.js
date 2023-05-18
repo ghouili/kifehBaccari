@@ -10,6 +10,7 @@ module.exports = withMT({
   darkMode: 'class',
   theme: {
     colors: {
+      PuroleCustomColor: '#A44CEE',
       customColor: '#7367F0',
       LightBGColor: '#F8F7FA',
       DarkBGColor: '#25293C',

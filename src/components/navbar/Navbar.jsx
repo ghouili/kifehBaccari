@@ -3,13 +3,20 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import Logo from "../../assets/images/logo.png";
+import UserIcon from "../../assets/icons/user.png";
+import Dots from "../../assets/icons/4dots.png";
+
 const Navbar = () => {
   return (
-    <div className="kifeh__navbar h-14 w-full border flex flex-row items-center">
-      <div className="kifeh__nvbar-logo w-1/5 border flex items-center justify-center">
-        <h1>LOGO</h1>
+    <div className="kifeh__navbar h-20 w-full border-b flex flex-row items-center py-2 bg-white">
+      <div className="kifeh__nvbar-logo h-full w-1/6  flex items-center ">
+        <Link to="/" className="h-full w-fit">
+          <img src={Logo} alt="logo" className="h-full w-auto" />
+        </Link>
       </div>
-      <div className="kifeh__navbar-links w-3/5 flex gap-6 ml-10 border font-semibold text-xl">
+      <div className="h-full ml-12 border-l my-6 " />
+      <div className="kifeh__navbar-links w-full flex gap-6 ml-10  font-semibold text-lg">
         <Link
           to="/"
           className="trasition duration-300 ease-in-out hover:text-blue-600"
@@ -29,14 +36,9 @@ const Navbar = () => {
           Contact us
         </Link>
       </div>
-      <div className="kifeh__navbar-auth flex items-center border">
-        <Link to="/login">
-          <button className="relative inline-flex items-center justify-center p-0.5  mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-md group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 ">
-            <span className="relative px-3 py-1.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
-              Authenticate
-            </span>
-          </button>
-        </Link>
+      <div className="kifeh__navbar-auth w-1/12 flex items-center justify-end gap-6 ">
+       <img src={UserIcon} alt="" className="w-auto h-auto" />
+       <img src={Dots} alt="" className="w-auto h-auto" />
       </div>
     </div>
   );
