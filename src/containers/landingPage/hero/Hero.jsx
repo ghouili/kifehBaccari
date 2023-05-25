@@ -28,8 +28,8 @@ const Hero = () => {
         <div className="flex flex-col gap-6 text-6xl font-bold ">
           <h1 className="text-black ">Choose The</h1>
           <span className="flex gap-2">
-            <h1>#01</h1>
-            <h1>IT Solutions</h1>
+            <h1 className="">#01</h1>
+            <h1 className="gradient__text">IT Solutions</h1>
           </span>
           <h1 className="text-black ">WP Theme.</h1>
         </div>

@@ -24,6 +24,12 @@ const Navbar = () => {
           Home
         </Link>
         <Link
+          to="/question"
+          className="trasition duration-300 ease-in-out hover:text-blue-600"
+        >
+          Check ISO
+        </Link>
+        <Link
           to="#about"
           className="trasition duration-300 ease-in-out hover:text-blue-600"
         >
