@@ -19,8 +19,8 @@ import { BsPersonVcard, BsPhone, BsPencilSquare } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
 import { TfiLocationPin } from "react-icons/tfi";
 import { MdOutlineBadge } from "react-icons/md";
-import InputField from "../../components/inputField/InputField";
-import { path } from "../../utils/Variables";
+import InputField from "../../../components/inputField/InputField";
+import { path } from "../../../utils/Variables";
 
 const Users = () => {
   const [open, setOpen] = useState(false);
@@ -436,7 +436,7 @@ const Users = () => {
                   type="email"
                   label="Email:"
                   name="email"
-                  placeholder="Admin Email"
+                  placeholder="Email"
                   value={formValues.email}
                   onChange={handleInputChange}
                 />

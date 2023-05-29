@@ -5,3 +5,4 @@ export { default as Sidebar} from './sidebar/Sidebar';
 export { default as Question } from './question/Question';
 export { default as Footer } from './footer/Footer';
 export { default as Contact } from './contactus/Contact';
+export { default as BarStatsChart } from './stats/BarStatsChart';

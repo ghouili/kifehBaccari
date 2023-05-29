@@ -1,11 +1,11 @@
 import "./sidebar.css";
 import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { BsBank2 } from "react-icons/bs";
+import { BsShieldCheck } from "react-icons/bs";
 import { TbLayoutDashboard } from "react-icons/tb";
-import { GiShop } from "react-icons/gi";
+import { SlQuestion } from "react-icons/sl";
 import { FiUsers } from "react-icons/fi";
-import { GiPackedPlanks } from "react-icons/gi";
+import { AiOutlineFileProtect } from "react-icons/ai";
 
 import { GeneralContext } from "../../Hooks/context/GeneralContext";
 import Logo from "../../assets/images/logo.png";
@@ -53,6 +53,46 @@ const Sidebar = () => {
           <FiUsers size={26} />
           <span>Users</span>
         </Link>
+
+        {/* iso::: */}
+        <Link
+          to="/iso"
+          className={`rounded-md flex flex-row items-center px-3 py-2 gap-2 text-base font-semibold  hover:text-gray-800 hover:bg-gray-200 ${
+            location.pathname === "/iso"
+              ? "text-gray-100 bg-customColor"
+              : "text-gray-800"
+          } `}
+        >
+          <BsShieldCheck size={26} />
+          <span>ISO</span>
+        </Link>
+
+        {/* pratique::: */}
+        <Link
+          to="/pratique"
+          className={`rounded-md flex flex-row items-center px-3 py-2 gap-2 text-base font-semibold  hover:text-gray-800 hover:bg-gray-200 ${
+            location.pathname === "/pratique"
+              ? "text-gray-100 bg-customColor"
+              : "text-gray-800"
+          } `}
+        >
+          <AiOutlineFileProtect size={26} />
+          <span>Pratique</span>
+        </Link>
+
+        {/* question::: */}
+        <Link
+          to="/questions"
+          className={`rounded-md flex flex-row items-center px-3 py-2 gap-2 text-base font-semibold  hover:text-gray-800 hover:bg-gray-200 ${
+            location.pathname === "/questions"
+              ? "text-gray-100 bg-customColor"
+              : "text-gray-800"
+          } `}
+        >
+          <SlQuestion size={26} />
+          <span>Questions</span>
+        </Link>
+
       </div>
     </div>
   );
