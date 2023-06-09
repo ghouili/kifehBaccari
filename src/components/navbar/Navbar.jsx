@@ -1,7 +1,8 @@
 import "./navbar.css";
 import React, { useEffect, useRef, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link as Goto } from "react-router-dom";
+import { Link } from "react-scroll";
 
 import Logo from "../../assets/images/logo.png";
 import UserIcon from "../../assets/icons/user.png";
@@ -48,8 +49,10 @@ const Navbar = () => {
       <div className="h-full ml-12 border-l my-6 " />
       <div className="kifeh__navbar-links w-full flex gap-6 ml-10  font-semibold text-lg">
         <Link
-          to="/"
-          className="trasition duration-300 ease-in-out hover:text-blue-600"
+          spy={true}
+          smooth={true}
+          to="Navbar"
+          className="trasition duration-300 ease-in-out hover:text-blue-600 cursor-pointer"
         >
           Home
         </Link>
@@ -58,7 +61,7 @@ const Navbar = () => {
         >
           <div
             onClick={() => setToggleMenu(!toggleMenu)}
-            className="trasition duration-300 ease-in-out hover:text-blue-600"
+            className="trasition duration-300 ease-in-out hover:text-blue-600 cursor-pointer"
           >
             Check ISO
           </div>
@@ -69,13 +72,13 @@ const Navbar = () => {
             >
               {isos.map(({ _id, iso }) => (
                 <>
-                  <Link
+                  <Goto
                     key={_id}
                     to={`/question/${_id}`}
                     className="w-full px-3 py-1 text-center hover:bg-customColor hover:text-white rounded-md"
                   >
                     {iso}
-                  </Link>
+                  </Goto>
                   <div className="w-full border-b " />
                 </>
               ))}
@@ -83,21 +86,29 @@ const Navbar = () => {
           )}
         </div>
         <Link
-          to="#about"
-          className="trasition duration-300 ease-in-out hover:text-blue-600"
+          spy={true}
+          smooth={true}
+          to="About"
+          className="trasition duration-300 ease-in-out hover:text-blue-600 cursor-pointer"
         >
           About us
         </Link>
         <Link
-          to="#contact"
-          className="trasition duration-300 ease-in-out hover:text-blue-600"
+          spy={true}
+          smooth={true}
+          to="Contact"
+          className="trasition duration-300 ease-in-out hover:text-blue-600 cursor-pointer"
         >
           Contact us
         </Link>
       </div>
       <div className="kifeh__navbar-auth w-1/12 flex items-center justify-end gap-6 ">
-        <img src={UserIcon} alt="" className="w-auto h-auto" />
-        <img src={Dots} alt="" className="w-auto h-auto" />
+      <Goto
+      to='/login'
+      >
+        <img src={UserIcon} alt="" className="w-auto h-auto cursor-pointer" />
+        </Goto>
+        <img src={Dots} alt="" className="w-auto h-auto cursor-pointer" />
       </div>
     </div>
   );

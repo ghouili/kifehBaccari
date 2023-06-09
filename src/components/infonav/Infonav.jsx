@@ -6,7 +6,7 @@ import { FaPhone } from 'react-icons/fa';
 
 const Infonav = () => {
   return (
-    <div className='flex flexow justify-between items-center pr-1.5'>
+    <div id="Navbar"  className='flex flexow justify-between items-center pr-1.5'>
         <div className="flex flex-rox items-center gap-4">
             <div className="flex items-center cursor-pointer gap-1 text-gray-600 hover:text-purple-700 transition duration-300 ease-in-out">
                 <HiMailOpen size={16} color='#836CF1' />

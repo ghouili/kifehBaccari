@@ -75,15 +75,23 @@ const Users = () => {
   };
 
   const searchFilter = (text) => {
+  // text from the search input
+  // use filterdata to display data at all times
     if (text) {
+      // masterdata have alla the data in our table that we gonna serch in 
       const newData = masterData.filter((item) => {
+        // conctinate each object to be 1 big uppercase string::
         const itemData = Object.values(item).join(" ").toUpperCase();
+        // the text from the search input become uppercase
         const textData = text.toUpperCase();
+        // check if the text from the search input exist in the string of the object it means we search in ll the object :
         return itemData.indexOf(textData) > -1;
       });
+      // filterdata have the filter result
       setfilterData(newData);
       setSearch(text);
     } else {
+      // if text is empty we display all the data in filter 
       setfilterData(masterData);
       setSearch(text);
     }

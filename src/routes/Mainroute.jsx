@@ -8,7 +8,8 @@ import {
   Pratique,
   Questions,
   Users,
-  OneQuestion
+  OneQuestion,
+  Register
 } from "../containers";
 import { Navbar, Infonav, Sidebar, MainNavbar } from "../components";
 import Cookies from "universal-cookie";
@@ -54,6 +55,7 @@ const Mainroute = () => {
                 // </PrivetRoute>
               }
             />
+            <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="users" element={<Users />} />
             <Route path="iso" element={<Iso />} />

@@ -55,8 +55,8 @@ const Hero = () => {
 
       <div className=" relative h-full w-1/2 flex flex-col items-center justify-center gap-10 py-20 px-10 ">
         <img src={HeadImage} alt="" className="w-full h-auto" />
-        <div className="absolute top-20 -right-6">
-          <img src={Missle} alt="" className="w-auto h-auto" />
+        <div className="absolute top-24 -right-6">
+          <img src={Missle} alt="" className="bouncing-image w-auto h-auto" />
           {/* missle */}
         </div>
       </div>

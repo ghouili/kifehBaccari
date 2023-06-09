@@ -6,3 +6,4 @@ export { default as OneQuestion } from './question/OneQuestion';
 export { default as Iso } from './admin/iso/Iso';
 export { default as Pratique } from './admin/pratique/Pratique';
 export { default as Questions } from './admin/questions/Questions';
+export { default as Register } from './authentication/Register';
