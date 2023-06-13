@@ -6,10 +6,10 @@ import { BsSun, BsBell } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoMdExpand } from "react-icons/io";
 import {
-    TbSquareRoundedArrowLeft,
-    TbSquareRoundedArrowRight,
-  } from "react-icons/tb";
-  import { BiMoon, BiBell } from "react-icons/bi";
+  TbSquareRoundedArrowLeft,
+  TbSquareRoundedArrowRight,
+} from "react-icons/tb";
+import { BiMoon, BiBell } from "react-icons/bi";
 
 import Cookies from "universal-cookie";
 
@@ -17,8 +17,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { GeneralContext } from "../../Hooks/context/GeneralContext";
 
 const Navbar = () => {
-
-  const { sidebarOpen, ToggleSidebar, HandleThemeSwitch, theme } = useContext(GeneralContext);
+  const { sidebarOpen, ToggleSidebar, HandleThemeSwitch, theme } =
+    useContext(GeneralContext);
   const cookies = new Cookies();
   const navigate = useNavigate();
   let user = cookies.get("user");
@@ -85,32 +85,27 @@ const Navbar = () => {
         </div>
 
         {/* right side */}
-        <div className="flex flex-row items-center gap-3 pr-7">
+        <div className="flex flex-row items-center gap-3">
           <div
-            className=" p-2.5 rounded-full cursor-pointer hover:bg-blue-50 text-gray-600 hover:text-blue-400"
+            className="hidden md:block p-2.5 rounded-full cursor-pointer hover:bg-blue-50 text-gray-600 hover:text-blue-400"
             onClick={handleFullScreen}
           >
             <IoMdExpand size={22} />
           </div>
           <div
-            className=" p-2.5 rounded-full cursor-pointer hover:bg-blue-50 text-gray-600 hover:text-blue-400"
+            className=" hidden md:block p-2.5 rounded-full cursor-pointer hover:bg-blue-50 text-gray-600 hover:text-blue-400"
             onClick={HandleThemeSwitch}
           >
-            {theme === 'light' ? 
-            <BiMoon size={22} />
-            :
-            <BsSun size={22} />
-          }
+            {theme === "light" ? <BiMoon size={22} /> : <BsSun size={22} />}
           </div>
           <div
-            className=" p-2.5 rounded-full cursor-pointer hover:bg-blue-50 text-gray-600 hover:text-blue-400"
+            className="hidden md:block p-2.5 rounded-full cursor-pointer hover:bg-blue-50 text-gray-600 hover:text-blue-400"
             // onClick={}
           >
             <BsBell size={22} />
-            
           </div>
           {!user ? null : (
-            <div className="relative p-2.5 rounded-full cursor-pointer hover:bg-blue-50 text-gray-600 hover:text-blue-400">
+            <div className="hidden md:block relative p-2.5 rounded-full cursor-pointer hover:bg-blue-50 text-gray-600 hover:text-blue-400">
               <BiBell size={22} />
               <div className="absolute flex items-center justify-center rounded-full w-4 h-4 bg-red-600 right-0 top-0 ">
                 <p className="text-xs font-medium text-white ">5</p>
@@ -122,8 +117,8 @@ const Navbar = () => {
               <div
                 // ref={menuRef}
                 onClick={() => setToggleMenu(!toggleMenu)}
-                className="  p-2.5 h-full flex flex-row items-center gap-2 cursor-pointer 
-        border-x font-semibold border-gray-200 bg-gray-100 text-gray-600 hover:text-white hover:bg-blue-900 "
+                className=" p-2.5 w-full h-full flex flex-row items-center md:gap-2 cursor-pointer 
+        md:border-x font-semibold md:border-gray-200 md:bg-gray-100 text-gray-600 hover:text-white hover:bg-blue-900 "
               >
                 <img
                   src={`${
@@ -135,7 +130,7 @@ const Navbar = () => {
                   alt="avatar"
                   className="w-8 h-8 rounded-full"
                 />
-                <div className="flex flex-col">
+                <div className="hidden md:flex flex-col">
                   <span className="text-sm font-semibold">
                     {user.prenom} {user.nom}
                   </span>
@@ -144,14 +139,39 @@ const Navbar = () => {
               </div>
               {!toggleMenu ? null : (
                 <div
-                  className="scale-up-ver-top shadow-md flex flex-col items-center gap-2 px-4 py-2 font-medium 
-              rounded-md z-30 absolute top-12 right-7 bg-white border "
+                  className=" w-fit scale-up-ver-top  flex flex-col items-center gap-2 px-4 py-2 font-medium 
+              rounded-md z-30 absolute top-12 right-7 bg-white border shadow-xl "
                 >
+                  <div
+                    className="flex flex-row gap-1 items-center md:hidden p-2.5 rounded-full cursor-pointer hover:bg-blue-50 hover:text-blue-400"
+                    onClick={handleFullScreen}
+                  >
+                    <IoMdExpand size={22} />
+                  </div>
+                  <div className="block md:hidden w-full border-b " />
+                  <div
+                    className=" flex flex-row gap-1 items-center md:hidden p-2.5 rounded-full cursor-pointer hover:bg-blue-50 hover:text-blue-400"
+                    onClick={HandleThemeSwitch}
+                  >
+                    {theme === "light" ? (
+                      <BiMoon size={22} />
+                    ) : (
+                      <BsSun size={22} />
+                    )}
+                  </div>
+                  <div className="block md:hidden w-full border-b " />
+                  <div
+                    className="flex flex-row gap-1 items-center md:hidden p-2.5 rounded-full cursor-pointer hover:bg-blue-50 hover:text-blue-400"
+                    // onClick={}
+                  >
+                    <BsBell size={22} />
+                  </div>
+                  <div className="block md:hidden w-full border-b " />
                   <Link
                     to={`/user/${user._id}`}
                     className="w-full px-3 py-1 text-center hover:bg-blue-700 hover:text-white rounded-md"
                   >
-                    My Profile
+                    Profile
                   </Link>
                   <div className="w-full border-b " />
                   <button

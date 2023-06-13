@@ -70,10 +70,14 @@ const Login = () => {
 
       console.log(result);
       if (result.success === true) {
-        swal("Success!", result.message, "success");
-        const jsonvalue = JSON.stringify(result.data);
-        cookies.set("user", jsonvalue);
-        return navigate("/");
+        // if (!result.data.avtive) {
+        //   return swal("Error!", "Your account isn't active yet", "error");
+        // } else {
+          swal("Success!", result.message, "success");
+          const jsonvalue = JSON.stringify(result.data);
+          cookies.set("user", jsonvalue);
+          return navigate("/");
+        // }
       } else {
         return swal("Error!", result.message, "error");
       }
@@ -89,7 +93,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen  text-gray-900 flex justify-center">
-
       <div className="max-w-screen-xl m-0 sm:m-10 border bg-white shadow-md sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div className="w-full self-start">
@@ -155,7 +158,12 @@ const Login = () => {
                     <span className="ml-3">Sign In</span>
                   </button>
                   <div className="w-full">
-                    <span className="text-sm font-medium" >You don't have an account ? <Link to="/register" className="text-indigo-500">Sign Up</Link></span>
+                    <span className="text-sm font-medium">
+                      You don't have an account ?{" "}
+                      <Link to="/register" className="text-indigo-500">
+                        Sign Up
+                      </Link>
+                    </span>
                   </div>
                   <div className="w-full flex justify-center">
                     <div className="mt-8 self-center " id="SignInID"></div>
@@ -170,7 +178,6 @@ const Login = () => {
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat 
             bg-[url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')]
             "
-            
           ></div>
         </div>
       </div>

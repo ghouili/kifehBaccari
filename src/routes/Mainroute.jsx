@@ -9,7 +9,7 @@ import {
   Questions,
   Users,
   OneQuestion,
-  Register
+  Register,
 } from "../containers";
 import { Navbar, Infonav, Sidebar, MainNavbar } from "../components";
 import Cookies from "universal-cookie";
@@ -22,8 +22,16 @@ const Mainroute = () => {
 
   return (
     <div
-      className={`h-screen ${user?.role === "admin" ? "px-10" : "px-20"}`}
-      style={{ width: "95vw" }}
+      className={`h-screen ${user?.role === "admin" ? "px-4 md:px-6 xl:px-10" : "px-20"}`}
+      // style={{ width: "95vw" }}
+      style={{
+        width: `${
+          ["/register", "/login", "/question"].includes(location.pathname)
+            ? "100vw"
+            : "99vw"
+        }`,
+      }}
+      // style={{["/register", "/login", "/question"].includes(location.pathname) ? {} : {}}}
     >
       {["/register", "/login", "/question"].includes(
         location.pathname
@@ -62,8 +70,8 @@ const Mainroute = () => {
             <Route
               path="question/:id"
               element={
-                <PrivetRoute roles={['client', 'admin']}>
-                <OneQuestion />
+                <PrivetRoute roles={["client", "admin"]}>
+                  <OneQuestion />
                 </PrivetRoute>
               }
             />

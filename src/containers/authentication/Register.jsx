@@ -22,7 +22,17 @@ const Register = () => {
     active: true,
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    cin: null,
+    email: null,
+    nom: null,
+    prenom: null,
+    adress: null,
+    tel: null,
+    password: null,
+    confirmPassword: null,
+    role: null,
+  });
 
   const handleChange = (e) => {
     setUser({
@@ -66,9 +76,9 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen text-gray-900 flex justify-center">
+    <div className=" h-fit text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 border bg-white shadow-md sm:rounded-lg flex justify-center flex-1">
-        <div className="p-6 w-full border">
+        <div className="p-6 w-full h-fit ">
           <div className="w-full self-start">
             <img src={Logo} className="w-32 mx-auto" alt="" />
           </div>
@@ -221,32 +231,18 @@ const Register = () => {
                       {errors.confirmPassword}
                     </span>
                   </div>
-                 
                 </div>
                 <div className="flex justify-center items-center mt-6">
                   <button
                     type="submit"
-                    className="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                    className="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition duration-200"
                   >
                     Sign Up
                   </button>
                 </div>
               </form>
             </div>
-            <div className="my-2 border-b text-center">
-              <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
-                Or sign up with email or social login
-              </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <Link
-                to="/login"
-                className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-gray-100 text-gray-800 flex items-center justify-center transition duration-200 hover:underline focus:outline-none"
-              >
-                <i className="fab fa-google text-gray-500 w-6 h-6" />
-                <span className="ml-4">Sign up with Google</span>
-              </Link>
-            </div>
+
             <div className="flex mt-8 justify-center text-sm text-gray-500">
               Already have an account?{" "}
               <Link to="/login" className="ml-1 text-blue-700">

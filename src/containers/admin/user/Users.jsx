@@ -15,14 +15,23 @@ import swal from "sweetalert";
 import { IoTrashOutline } from "react-icons/io5";
 import { FiUpload } from "react-icons/fi";
 import { BiEdit } from "react-icons/bi";
-import { BsPersonVcard, BsPhone, BsPencilSquare } from "react-icons/bs";
+import {
+  BsPersonVcard,
+  BsPhone,
+  BsPencilSquare,
+  BsLock,
+  BsUnlock,
+} from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
 import { TfiLocationPin } from "react-icons/tfi";
 import { MdOutlineBadge } from "react-icons/md";
 import InputField from "../../../components/inputField/InputField";
 import { path } from "../../../utils/Variables";
+import Cookies from "universal-cookie";
 
 const Users = () => {
+  const cookies = new Cookies();
+  let user = cookies.get("user");
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
@@ -36,7 +45,7 @@ const Users = () => {
     tel: "",
     adress: "",
     role: "client",
-    avatar: ""
+    avatar: "",
   });
   //image related
   const [File, setFile] = useState();
@@ -75,10 +84,10 @@ const Users = () => {
   };
 
   const searchFilter = (text) => {
-  // text from the search input
-  // use filterdata to display data at all times
+    // text from the search input
+    // use filterdata to display data at all times
     if (text) {
-      // masterdata have alla the data in our table that we gonna serch in 
+      // masterdata have alla the data in our table that we gonna serch in
       const newData = masterData.filter((item) => {
         // conctinate each object to be 1 big uppercase string::
         const itemData = Object.values(item).join(" ").toUpperCase();
@@ -91,7 +100,7 @@ const Users = () => {
       setfilterData(newData);
       setSearch(text);
     } else {
-      // if text is empty we display all the data in filter 
+      // if text is empty we display all the data in filter
       setfilterData(masterData);
       setSearch(text);
     }
@@ -123,7 +132,7 @@ const Users = () => {
       tel: "",
       adress: "",
       role: "client",
-      avatar: null
+      avatar: null,
     });
   };
 
@@ -159,14 +168,14 @@ const Users = () => {
     formData.append("adress", formValues.adress);
     formData.append("active", true);
     try {
-    let url, result;
-    if (formValues._id) {
-      url = `${path}user/${formValues._id}`;
-      result = await axios.put(url, formData);
-    } else {
-      url = `${path}user/add`;
-      result = await axios.post(url, formData);
-    }
+      let url, result;
+      if (formValues._id) {
+        url = `${path}user/${formValues._id}`;
+        result = await axios.put(url, formData);
+      } else {
+        url = `${path}user/add`;
+        result = await axios.post(url, formData);
+      }
       console.log(result);
       if (result.data.success === true) {
         fetchData();
@@ -184,6 +193,30 @@ const Users = () => {
     }
   };
 
+  const ToggleLockUser = async (active, id) => {
+    const willDelete = await swal({
+      title: "Are you sure?",
+      text: `Are you sure that you want to ${
+        active ? "Unlock" : "Lock"
+      } this User?`,
+      icon: "warning",
+      dangerMode: true,
+    });
+
+    if (willDelete) {
+      const result = await axios.post(`http://localhost:5000/user/lock/${id}`, {
+        active: active,
+      });
+
+      if (result.data.success) {
+        swal("Success!", result.data.message, "success");
+        fetchData();
+      } else {
+        return swal("Error!", result.adta.message, "error");
+      }
+    }
+  };
+
   const deleteUser = async (id) => {
     const willDelete = await swal({
       title: "Are you sure?",
@@ -191,22 +224,22 @@ const Users = () => {
       icon: "warning",
       dangerMode: true,
     });
-     
-    if (willDelete) {
-    const result = await axios.delete(`http://localhost:5000/user/${id}`);
 
-    if (result.data.success) {
-      swal("Success!", result.data.message, "success");
-      fetchData();
-    } else {
-      return swal("Error!", result.adta.message, "error");
+    if (willDelete) {
+      const result = await axios.delete(`http://localhost:5000/user/${id}`);
+
+      if (result.data.success) {
+        swal("Success!", result.data.message, "success");
+        fetchData();
+      } else {
+        return swal("Error!", result.adta.message, "error");
+      }
     }
-  }
   };
 
   return (
     <div className="w-full border mt-4 bg-white p-4 shadow-sm rounded-sm">
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <Breadcrumbs>
           <Link to="/" className="opacity-60 text-customColor">
             <svg
@@ -223,7 +256,7 @@ const Users = () => {
     </Link> */}
           <Link to="#">Users</Link>
         </Breadcrumbs>
-        <div className="w-fit flex gap-10 items-center">
+        <div className="w-full md:w-fit flex  md:gap-10 items-center justify-between md:justify-end">
           <div className="relative flex w-full max-w-[24rem]">
             <Input
               type="search"
@@ -255,17 +288,32 @@ const Users = () => {
         </div>
       </div>
 
-      <div className="mt-10 w-full grid grid-cols-4 gap-4">
+      <div className="mt-10 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4">
         {filterData
           .slice(0)
           .reverse()
-          .map(({ _id, nom, avatar, prenom, tel, cin, email, adress, role }) => {
-            return (
-              <div
-                key={_id}
-                className="flex flex-col border bg-gray-100 rounded-md shadow py-4 px-2"
-              >
-                <div className="w-full flex justify-center">
+          .map(
+            ({
+              _id,
+              nom,
+              avatar,
+              prenom,
+              tel,
+              cin,
+              email,
+              adress,
+              role,
+              active,
+            }) => {
+              if (user._id === _id) {
+                return;
+              }
+              return (
+                <div
+                  key={_id}
+                  className="flex flex-col border bg-gray-100 rounded-md shadow py-4 px-2"
+                >
+                  <div className="w-full flex justify-center">
                     <img
                       src={`${path}uploads/images/${avatar}`}
                       alt="user Pic"
@@ -297,43 +345,60 @@ const Users = () => {
                     <h2>{role}</h2>
                   </div>
 
-                <div className="w-full border my-2 "></div>
-                <div className="flex justify-between w-full text-gray-700 items-center font-medium text-lg px-5 pt-1">
-                  <button
-                    type="button"
-                    className="relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white  focus:ring-4 focus:outline-none focus:ring-green-200 "
-                    onClick={() => Update_User({
-                      _id,
-                      nom,
-                      avatar,
-                      prenom,
-                      tel,
-                      cin,
-                      email,
-                      adress,
-                      role,
-                    })}
-                  >
-                    <span className="relative flex items-center gap-1  px-3 py-1.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
-                      <BsPencilSquare />
-                      Update
-                    </span>
-                  </button>
+                  {/*  */}
+                  <div className="w-full border my-2 "></div>
+                  <div className="flex justify-between w-full text-gray-700 items-center font-medium text-lg px-5 pt-1">
+                    <button
+                      class={`relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br ${
+                        active
+                          ? "from-pink-500 to-red-500 group-hover:from-pink-500 group-hover:to-red-500"
+                          : "from-purple-600 to-blue-500 group-hover:from-purple-600"
+                      } group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-blue-300`}
+                      onClick={() => ToggleLockUser(!active, _id)}
+                    >
+                      <span class="relative px-3 py-1.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+                        {active ? <BsLock /> : <BsUnlock />}
+                      </span>
+                    </button>
 
-                  <button
-                    type="button"
-                    className="relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-red-500 group-hover:from-pink-500 group-hover:to-red-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 "
-                    onClick={() => deleteUser(_id)}
-                  >
-                    <span className="relative flex items-center gap-1 px-3 py-1.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
-                      <IoTrashOutline />
-                      Delete
-                    </span>
-                  </button>
+                    <button
+                      type="button"
+                      className="relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white  focus:ring-4 focus:outline-none focus:ring-green-200 "
+                      onClick={() =>
+                        Update_User({
+                          _id,
+                          nom,
+                          avatar,
+                          prenom,
+                          tel,
+                          cin,
+                          email,
+                          adress,
+                          role,
+                        })
+                      }
+                    >
+                      <span className="relative flex items-center gap-1  px-3 py-1.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                        <BsPencilSquare />
+                        Update
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      className="relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-red-500 group-hover:from-pink-500 group-hover:to-red-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 "
+                      onClick={() => deleteUser(_id)}
+                    >
+                      <span className="relative flex items-center gap-1 px-3 py-1.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                        <IoTrashOutline />
+                        Delete
+                      </span>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            }
+          )}
       </div>
 
       <Fragment>
