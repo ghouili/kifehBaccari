@@ -38,10 +38,10 @@ const Report = ({responses, isoid}) => {
         <tbody>
           {responses.map((response, index) => (
             <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-              <td className="py-2 px-4">{response.questionid.question}</td>
-              <td className="py-2 px-4">{response.response}</td>
-              <td className="py-2 px-4">{response.response !== 'non' ? '------' : response.conclusion}</td>
-              <td className="py-2 px-4">{response.response !== 'non' ? '------' : response.recommendation}</td>
+              <td className="py-2 px-4">{response?.questionid?.question}</td>
+              <td className="py-2 px-4">{response?.response}</td>
+              <td className="py-2 px-4">{response?.response !== 'non' ? '------' : response?.conclusion}</td>
+              <td className="py-2 px-4">{response?.response !== 'non' ? '------' : response?.recommendation}</td>
               {/* <td className="py-2 px-4">{response.conclusion}</td>
               <td className="py-2 px-4">{response.recommendation}</td> */}
             </tr>

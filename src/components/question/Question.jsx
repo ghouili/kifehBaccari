@@ -14,6 +14,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 import Report from "../report/Report";
 import { path } from "../../utils/Variables";
+import { Link } from "react-router-dom";
 
 const Question = ({ questions, isoid }) => {
   const cookies = new Cookies();
@@ -48,16 +49,6 @@ const Question = ({ questions, isoid }) => {
 
   const addItem = async (newItem) => {
     try {
-      // const check = items.map((item) =>
-      //   item.questionid === newItem.questionid ? false : item
-      // );
-
-      // console.log("check");
-      // console.log(newItem);
-      // if(check !== false) {
-      //   await axios.put(`${path}response/${check[0]._id}`, newItem);
-      //   return handleNextQuestion();
-      // }
       console.log("add");
       // Push the updated array to the response API
       let result = await axios.post(`${path}response/add`, newItem);
@@ -143,6 +134,12 @@ const Question = ({ questions, isoid }) => {
             {currentQuestion?.question}
           </h2>
           <div className="flex items-center justify-end gap-10 mt-10 ">
+            <Link
+              to="/"
+              className="px-4 py-2 border-2 border-white text-white text-xl font-semibold rounded-md cursor-pointer  hover:bg-white hover:text-blue-700   "
+            >
+              Home
+            </Link>
             <h2
               className="px-4 py-2 border-2 border-white text-white text-xl font-semibold rounded-md cursor-pointer  hover:bg-white hover:text-red-700   "
               onClick={handleOpen}
@@ -280,6 +277,14 @@ const Question = ({ questions, isoid }) => {
               className="mr-1"
             >
               <span>Cancel</span>
+            </Button>
+            <Button
+              variant="gradient"
+              color="blue"
+              className="mr-1"
+              onClick={() => (window.location.href = "https://localhost:8834/")}
+            >
+              <span>Check Nessuss</span>
             </Button>
             <Button variant="gradient" color="blue" onClick={generatepdf}>
               <span>Generate PDF</span>

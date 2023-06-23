@@ -22,7 +22,9 @@ const Mainroute = () => {
 
   return (
     <div
-      className={`h-screen ${user?.role === "admin" ? "px-4 md:px-6 xl:px-10" : "px-20"}`}
+      className={`h-screen ${
+        user?.role === "admin" ? "px-4 md:px-6 xl:px-10" : "px-20"
+      }`}
       // style={{ width: "95vw" }}
       style={{
         width: `${
@@ -65,8 +67,22 @@ const Mainroute = () => {
             />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
-            <Route path="users" element={<Users />} />
-            <Route path="iso" element={<Iso />} />
+            <Route
+              path="users"
+              element={
+                <PrivetRoute roles={["admin"]}>
+                  <Users />
+                </PrivetRoute>
+              }
+            />
+            <Route
+              path="iso"
+              element={
+                <PrivetRoute roles={["admin"]}>
+                  <Iso />
+                </PrivetRoute>
+              }
+            />
             <Route
               path="question/:id"
               element={
@@ -78,17 +94,17 @@ const Mainroute = () => {
             <Route
               path="questions"
               element={
-                // <PrivetRoute roles={['client', 'admin']}>
-                <Questions />
-                // </PrivetRoute>
+                <PrivetRoute roles={["admin"]}>
+                  <Questions />
+                </PrivetRoute>
               }
             />
             <Route
               path="pratique"
               element={
-                // <PrivetRoute roles={['client', 'admin']}>
-                <Pratique />
-                // </PrivetRoute>
+                <PrivetRoute roles={["admin"]}>
+                  <Pratique />
+                </PrivetRoute>
               }
             />
           </Routes>

@@ -76,6 +76,7 @@ const Navbar = () => {
                     key={_id}
                     to={`/question/${_id}`}
                     className="w-full px-3 py-1 text-center hover:bg-customColor hover:text-white rounded-md"
+                    onClick={()=>setToggleMenu(false)}
                   >
                     {iso}
                   </Goto>

@@ -25,7 +25,7 @@ const TABLE_HEAD = ["Question", "Conclusion", "Recommendation", "Pratique", ""];
 
 const Questions = () => {
   const cookies = new Cookies();
-  let user = cookies.get('user');
+  let user = cookies.get("user");
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -37,7 +37,7 @@ const Questions = () => {
     conclusion: "",
     recommendation: "",
     pratiqueid: "",
-    userid: user?._id
+    userid: user?._id,
   });
 
   const searchFilter = (text) => {
@@ -82,7 +82,7 @@ const Questions = () => {
       conclusion: "",
       recommendation: "",
       pratiqueid: "",
-      userid: user?._id
+      userid: user?._id,
     });
   };
 
@@ -227,60 +227,62 @@ const Questions = () => {
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="w-full">
               {filterData
                 .slice(0)
                 .reverse()
                 .map(
                   (
-                    {
-                      _id,
-                      question,
-                      conclusion,
-                      recommendation,
-                      pratiqueid,
-                    },
+                    { _id, question, conclusion, recommendation, pratiqueid },
                     index
                   ) => (
-                    <tr key={_id} className="even:bg-blue-gray-50/50">
-                      <td className="p-4">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {question}
-                        </Typography>
+                    <tr key={_id} className="even:bg-blue-gray-50/50 w-full">
+                      <td className="p-4 w-1/5">
+                        <div className="flex flex-col">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {question}
+                          </Typography>
+                        </div>
+                      </td>
+                      <td className="p-4 w-1/5">
+                        <div className="flex flex-col">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {conclusion}
+                          </Typography>
+                        </div>
                       </td>
                       <td className="p-4">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {conclusion}
-                        </Typography>
+                        <div className="flex flex-col">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {recommendation}
+                          </Typography>
+                        </div>
                       </td>
-                      <td className="p-4">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {recommendation}
-                        </Typography>
-                      </td>
-                      <td className="p-4">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {pratiqueid?.pratique}
-                        </Typography>
+                      <td className="p-4 w-1/5">
+                        <div className="flex flex-col">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {pratiqueid?.pratique}
+                          </Typography>
+                        </div>
                       </td>
 
-                      <td className="p-4 flex justify-end ">
+                      <td className="p-4 flex justify-end w-1/6">
                         <Tooltip content="Edit ISO">
                           <IconButton
                             onClick={() =>
@@ -289,7 +291,7 @@ const Questions = () => {
                                 question,
                                 conclusion,
                                 recommendation,
-                                
+
                                 pratiqueid,
                               })
                             }
@@ -364,9 +366,7 @@ const Questions = () => {
                     className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 
                     sm:text-xs focus:ring-blue-500 focus:border-blue-500 "
                   >
-                      <option  value="">
-                        Select Pratique
-                      </option>
+                    <option value="">Select Pratique</option>
                     {pratiques.map(({ _id, pratique }) => (
                       <option key={_id} value={_id}>
                         {pratique}

@@ -10,7 +10,7 @@ const Infonav = () => {
         <div className="flex flex-rox items-center gap-4">
             <div className="flex items-center cursor-pointer gap-1 text-gray-600 hover:text-purple-700 transition duration-300 ease-in-out">
                 <HiMailOpen size={16} color='#836CF1' />
-                <span className='text-sm font-semibold'> info@iteck-tech</span>
+                <span className='text-sm font-semibold'> contact@protected-consulting.com</span>
             </div>
             <div className="flex items-center cursor-pointer gap-1 text-gray-600 hover:text-purple-700 transition duration-300 ease-in-out">
                 <FaPhone size={16} color='#836CF1' />
